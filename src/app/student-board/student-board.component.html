@@ -1,0 +1,14 @@
+<mat-card>
+  <header>
+    <h3>{{student.name}}</h3>
+    <button mat-button
+            color="primary"
+            class="add-points-button"
+            (click)="openDialog()"
+    >
+      <mat-icon>star_rate</mat-icon>
+      Add Points
+    </button>
+  </header>
+  <app-grades-list></app-grades-list>
+</mat-card>

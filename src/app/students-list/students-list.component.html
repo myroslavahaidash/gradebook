@@ -1,0 +1,8 @@
+<div class="page-wrapper">
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="['students', student.id]" routerLinkActive="nav-active" *ngFor="let student of students"> {{ student.name }} </a>
+  </mat-nav-list>
+  <div class="table-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>

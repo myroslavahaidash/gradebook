@@ -1,0 +1,17 @@
+<h1 mat-dialog-title *ngIf="mode === 'add'">New Speciality</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Speciality</h1>
+<div mat-dialog-content>
+  <p *ngIf="mode === 'edit'">{{data.speciality.name}} - {{data.speciality.code}}</p>
+  <form (submit)="onSubmit()">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name" [(ngModel)]="name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Code" [(ngModel)]="code" name="code">
+    </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">
+    <span *ngIf="mode === 'add'">Add</span>
+    <span *ngIf="mode === 'edit'">Edit</span>
+  </button>
+  </form>
+</div>

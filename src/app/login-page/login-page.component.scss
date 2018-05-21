@@ -1,6 +1,6 @@
 mat-card {
   width: 300px;
-  margin: 0 auto;
+  margin: 30px auto 0;
 }
 
 mat-form-field {
@@ -11,4 +11,15 @@ mat-form-field {
 button {
   display: block;
   background: #ffc947;
+}
+
+a {
+  color: #8BC34A;
+  cursor: pointer;
+  margin-top: 10px;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

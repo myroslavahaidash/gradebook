@@ -1,0 +1,11 @@
+.subject-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  mat-radio-button {
+    &:first-of-type{
+      margin-right: 20px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title *ngIf="mode === 'add'">New Group</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Group</h1>
+<div mat-dialog-content>
+  <p *ngIf="mode === 'edit'">Editing {{data.group.code}}</p>
+  <form (submit)="onSubmit()">
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Code" [(ngModel)]="code" name="code">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Speciality" [(value)]="selectedSpeciality">
+        <mat-option *ngFor="let speciality of specialities" [value]="speciality.id">
+          {{ speciality.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="mode === 'add'">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      <span *ngIf="mode === 'add'">Add</span>
+      <span *ngIf="mode === 'edit'">Edit</span>
+    </button>
+  </form>
+</div>
+
+

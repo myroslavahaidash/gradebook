@@ -1,0 +1,9 @@
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="onChangePasswordClick()">Change password</button>
+  <button mat-menu-item (click)="onSignOutClick()">Sign Out</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="userMenu">
+  <mat-icon>account_circle</mat-icon>
+  {{user.name}}
+</button>

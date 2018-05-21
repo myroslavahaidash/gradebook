@@ -1,1 +1,23 @@
-<app-grades-list></app-grades-list>
+<div class="subject-select">
+    <mat-form-field>
+        <mat-select placeholder="Year" [(value)]="selectedYear">
+            <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-radio-group [(ngModel)]="selectedSemester">
+        <mat-radio-button value="1" >I semester</mat-radio-button>
+        <mat-radio-button value="2">II semester</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field>
+        <mat-select placeholder="Subject" [(value)]="selectedSubject" (selectionChange)="onSubjectChange($event)">
+            <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+                {{ subject.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<mat-card>
+  <router-outlet></router-outlet>
+</mat-card>
