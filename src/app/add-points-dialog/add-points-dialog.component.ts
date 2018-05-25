@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GradesService } from '../grades.service';
 
 @Component({
   selector: 'app-add-points-dialog',
@@ -7,16 +8,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./add-points-dialog.component.scss']
 })
 export class AddPointsDialogComponent implements OnInit {
-  date;
 
   constructor(
     public dialogRef: MatDialogRef<AddPointsDialogComponent>,
+    private gradesService: GradesService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.date = new Date();
   }
 
-  onAddClick(): void {
+  value;
+  description;
+  date;
+
+  onSubmit() {
+    this.gradesService.createGrade(this.data.studentId, this.data.courseId, this.value, this.description, this.date);
     this.dialogRef.close();
   }
 

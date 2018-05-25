@@ -25,8 +25,7 @@ export class GroupDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.data.mode === 'add') {
-      // this.groupsService.createGroup(this.code, this.date, this.selectedSpeciality);
-      console.log(this.code, this.date, this.selectedSpeciality);
+      this.groupsService.createGroup(this.code, this.date.format('YYYY-MM-DD'), this.selectedSpeciality.id);
       this.dialogRef.close();
     }
 
@@ -37,12 +36,15 @@ export class GroupDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.specialitiesService.getSpecialities().subscribe(specialities => this.specialities = specialities);
     this.mode = this.data.mode;
-    if (this.data.mode === 'edit' && this.data.group) {
-      this.code = this.data.group.code;
-    }
+    this.specialitiesService.getSpecialities().subscribe(specialities => {
+      this.specialities = specialities;
+      if (this.data.mode === 'edit' && this.data.group) {
+        this.code = this.data.group.code;
+        this.selectedSpeciality = this.specialities.find(speciality => speciality.id === this.data.group.speciality.id);
+        // console.log(this.selectedSpeciality);
+      }
+    });
   }
-
 }
 

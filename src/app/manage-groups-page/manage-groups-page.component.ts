@@ -29,7 +29,7 @@ export class ManageGroupsPageComponent implements OnInit {
   }
 
   onDelete(id) {
-    this.groupsService.deleteSpeciality(id);
+    this.groupsService.deleteGroup(id);
   }
 
   openAddGroupDialog() {

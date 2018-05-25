@@ -1,20 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-const YEARS = [
-  {
-    id: 2016,
-    name: '2016 - 2017'
-  },
-  {
-    id: 2017,
-    name: '2017 - 2018'
-  },
-  {
-    id: 2018,
-    name: '2018 - 2019'
-  }
-];
+import { GroupScheduleService } from '../group-schedule.service';
+import { GroupsService } from '../groups.service';
+import { MatTableDataSource } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-manage-group-subjects-page',
@@ -22,22 +11,35 @@ const YEARS = [
   styleUrls: ['./manage-group-subjects-page.component.scss']
 })
 export class ManageGroupSubjectsPageComponent implements OnInit {
-  years = YEARS;
-  currentYear = this.years[1];
-  currentSemester = 1;
-  selectedYearId;
-  selectedSemester;
-
-  openSubjectsTable() {
-    this.router.navigate(['manage', 'groups', 1, 'subjects', 'year', this.selectedYearId, 'semester', this.selectedSemester]);
-  }
   constructor(
-    private router: Router
+    private groupScheduleService: GroupScheduleService,
+    private groupsService: GroupsService,
+    private route: ActivatedRoute
   ) { }
 
+  groupId;
+  group;
+  semesters;
+  dataSource;
+
+
   ngOnInit() {
-    this.selectedYearId = this.currentYear.id;
-    this.selectedSemester = this.currentSemester;
+    this.route.params.switchMap(
+      params => {
+        this.groupId = +params.groupid;
+        return this.groupScheduleService.getGroupSemesters(this.groupId);
+      }).subscribe(semesters => {
+      this.semesters = semesters;
+      this.dataSource = new MatTableDataSource(this.semesters);
+    });
+
+    this.route.params.switchMap(
+      params => {
+        this.groupId = +params.groupid;
+        return this.groupsService.getGroup(this.groupId);
+      }).subscribe(group => {
+      this.group = group;
+    });
   }
 
 }

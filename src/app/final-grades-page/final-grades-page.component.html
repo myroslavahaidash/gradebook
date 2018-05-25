@@ -9,32 +9,39 @@
 
     <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.subject.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="assessmentType">
+      <mat-header-cell *matHeaderCellDef> Assessment type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.assessmentType.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="points">
       <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Points </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.points}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.value}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="mark">
       <mat-header-cell *matHeaderCellDef class="centered-cell"> Mark </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.mark}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.value | letterGrade}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="year">
-      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Year </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.year}} </mat-cell>
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Course </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.semester.courseNumber}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="semester">
       <mat-header-cell *matHeaderCellDef class="centered-cell"> Semester </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.semester}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.semester.semesterNumber}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="teacher">
       <mat-header-cell *matHeaderCellDef> Teacher </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.teacher}} </mat-cell>
+      <mat-cell *matCellDef="let element">
+        {{element.teacher.lastName + ' ' + element.teacher.firstName + ' ' + element.teacher.middleName}}
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

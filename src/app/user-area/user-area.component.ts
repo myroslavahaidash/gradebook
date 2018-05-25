@@ -8,9 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./user-area.component.scss']
 })
 export class UserAreaComponent implements OnInit {
-  user = {
-    name: 'Andrey Ivanov'
-  };
+  user;
 
   onChangePasswordClick() {
     this.router.navigate(['change_password']);
@@ -27,6 +25,7 @@ export class UserAreaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.getUserProfile().subscribe(userProfile => this.user = userProfile);
   }
 
 }

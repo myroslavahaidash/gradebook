@@ -7,7 +7,7 @@
     <button mat-button
             class="add-button"
             color="primary"
-            (click)="openAddTeacherDialog()"
+            (click)="openAddStudentDialog()"
     >
       <mat-icon>add</mat-icon>
       Add New Student
@@ -18,13 +18,13 @@
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastName + ' ' + element.firstName + ' ' + element.middleName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="openEditTeacherDialog(element)">
+        <button mat-icon-button (click)="openEditStudentDialog(element)">
           <mat-icon>edit</mat-icon>
         </button>
       </mat-cell>

@@ -12,7 +12,6 @@ export class AppHeaderComponent implements OnInit {
 
   getUserProfile() {
     this.authService.getUserProfile().subscribe(userProfile => {
-      console.log(userProfile);
       this.userProfile = userProfile;
     });
   }

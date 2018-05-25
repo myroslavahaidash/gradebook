@@ -11,9 +11,13 @@ export class GroupsService {
     private authService: AuthService
   ) {
     this.groups = new BehaviorSubject<any>([]);
+    this.group = new BehaviorSubject<any>({});
+    this.groupStudents = new BehaviorSubject<any>([]);
   }
 
   private groups: BehaviorSubject<any>;
+  private group: BehaviorSubject<any>;
+  private groupStudents: BehaviorSubject<any>;
 
   private getHeaders() {
     return {
@@ -23,11 +27,25 @@ export class GroupsService {
     };
   }
 
-  getGroups () {
+  getGroups() {
     this.http.get('http://localhost:8090/api/groups', this.getHeaders())
       .subscribe(groups => this.groups.next(groups));
 
     return this.groups.asObservable();
+  }
+
+  getGroup(id) {
+    this.http.get(`http://localhost:8090/api/groups/${id}`, this.getHeaders())
+      .subscribe(group => this.group.next(group));
+
+    return this.group.asObservable();
+  }
+
+  getGroupStudents(groupId) {
+    this.http.get(`http://localhost:8090/api/groups/${groupId}/students`, this.getHeaders())
+      .subscribe(groupStudents => this.groupStudents.next(groupStudents));
+
+    return this.groupStudents.asObservable();
   }
 
   createGroup(code, educationStartedAt, specialityId) {
@@ -38,19 +56,20 @@ export class GroupsService {
       });
   }
 
-  updateGroup(groupId, code, specialityId) {
-    this.http.post(`http://localhost:8090/api/groups/${groupId}`, {code, specialityId}, this.getHeaders())
+  updateGroup(groupId, code, speciality) {
+    this.http.post(`http://localhost:8090/api/groups/${groupId}`, {code, specialityId: speciality.id}, this.getHeaders())
       .subscribe(() => {
         const group = this.groups.value.find(g => g.id === groupId);
+
         group.code = code;
-        group.specialityId = specialityId;
+        group.speciality = speciality;
 
         this.groups.next(this.groups.value);
       }
     );
   }
 
-  deleteSpeciality(groupId) {
+  deleteGroup(groupId) {
     this.http.delete(`http://localhost:8090/api/groups/${groupId}`, this.getHeaders())
       .subscribe(() => this.groups.next(this.groups.value.filter(g => g.id !== groupId)));
   }

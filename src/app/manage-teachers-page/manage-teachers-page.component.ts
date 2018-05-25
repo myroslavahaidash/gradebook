@@ -2,26 +2,7 @@ import {Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { TeacherDialogComponent } from '../teacher-dialog/teacher-dialog.component';
-
-const TEACHERS = [
-  {
-    id: 1,
-    name: 'Dimitri Antoniadis'
-  },
-  {
-    id: 2,
-    name: 'Tim Berners-Lee'
-  },
-  {
-    id: 3,
-    name: 'Dimitri Bertsekas'
-  },
-  {
-    id: 4,
-    name: 'Tamara Broderick'
-  }
-];
-
+import { TeachersService } from '../teachers.service';
 
 @Component({
   selector: 'app-manage-teachers-page',
@@ -29,8 +10,15 @@ const TEACHERS = [
   styleUrls: ['./manage-teachers-page.component.scss']
 })
 export class ManageTeachersPageComponent implements OnInit {
+
+  constructor(
+    public dialog: MatDialog,
+    private teachersService: TeachersService
+  ) { }
+
+  dataSource;
+  teachers;
   displayedColumns = ['name', 'edit', 'delete'];
-  dataSource = new MatTableDataSource(TEACHERS);
   @ViewChild(MatSort) sort: MatSort;
 
   applyFilter(filterValue: string) {
@@ -39,38 +27,35 @@ export class ManageTeachersPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onEdit(subject) {
-
-  }
-
   onDelete(id) {
-    console.log(id);
+    this.teachersService.deleteTeacher(id);
   }
 
   openAddTeacherDialog() {
-    let dialogRef = this.dialog.open(TeacherDialogComponent, {
+    const dialogRef = this.dialog.open(TeacherDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'add'
+      }
     });
   }
 
-  openEditTeacherDialog() {
-    let dialogRef = this.dialog.open(TeacherDialogComponent, {
+  openEditTeacherDialog(teacher) {
+    const dialogRef = this.dialog.open(TeacherDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'edit',
+        teacher
+      }
     });
   }
-
-  constructor(
-    public dialog: MatDialog
-  ) { }
 
   ngOnInit() {
+    this.teachersService.getTeachers().subscribe(teachers => {
+      this.teachers = teachers;
+      this.dataSource = new MatTableDataSource(this.teachers);
+    });
+
     this.dataSource.sort = this.sort;
   }
-
 }

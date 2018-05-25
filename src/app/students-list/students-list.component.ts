@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-const STUDENTS = [
-  {
-    id: 1,
-    name: 'Egor Sobolev'
-  },
-  {
-    id: 2,
-    name: 'Anna Ivanova'
-  },
-  {
-    id: 3,
-    name: 'Valeria Andreeva'
-  }
-];
+import { ActivatedRoute } from '@angular/router';
+import { GroupsService } from '../groups.service';
 
 @Component({
   selector: 'app-students-list',
@@ -21,10 +8,22 @@ const STUDENTS = [
   styleUrls: ['./students-list.component.scss']
 })
 export class StudentsListComponent implements OnInit {
-  students = STUDENTS;
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private groupsService: GroupsService
+  ) { }
+
+  students = [];
+  groupId;
 
   ngOnInit() {
+    this.route.params.switchMap(
+      params => {
+        this.groupId = +params.groupid;
+        return this.groupsService.getGroupStudents(this.groupId);
+      }).subscribe(groupStudents => {
+      this.students = groupStudents;
+    });
   }
 
 }

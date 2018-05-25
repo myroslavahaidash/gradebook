@@ -1,13 +1,16 @@
-<mat-form-field>
-  <mat-select placeholder="Year" [(value)]="selectedYearId" (selectionChange)="openSubjectsTable()">
-    <mat-option *ngFor="let year of years" [value]="year.id">
-      {{ year.name }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-radio-group [(ngModel)]="selectedSemester" (change)="openSubjectsTable()">
-  <mat-radio-button value="1">I semester</mat-radio-button>
-  <mat-radio-button value="2">II semester</mat-radio-button>
-</mat-radio-group>
-<router-outlet></router-outlet>
+<h2>Group: {{group.code}}</h2>
+<div class="flex-wrapper">
+  <mat-nav-list>
+    <a mat-list-item
+       [routerLink]="['year', semester.year, 'semesters', semester.semesterNumber]"
+       routerLinkActive="nav-active"
+       *ngFor="let semester of semesters"
+    >
+      {{semester.courseNumber + ' course ' + semester.semesterNumber + ' semester' }}
+    </a>
+  </mat-nav-list>
+  <div class="table-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 

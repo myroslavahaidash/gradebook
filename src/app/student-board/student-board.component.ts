@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { AddPointsDialogComponent } from '../add-points-dialog/add-points-dialog.component';
-
-const STUDENT = {
-  name: 'Andrey Ivanov'
-};
+import { GradesService } from '../grades.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/combineLatest';
 
 @Component({
   selector: 'app-student-board',
@@ -12,22 +13,48 @@ const STUDENT = {
   styleUrls: ['./student-board.component.scss']
 })
 export class StudentBoardComponent implements OnInit {
-  student = STUDENT;
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private gradesService: GradesService,
+    private route: ActivatedRoute
   ) { }
 
-  openDialog(): void {
+  studentId;
+  subjectId;
+  grades;
+  dataSource;
+  displayedColumns = ['description', 'points', 'createdAt', 'delete'];
+  finalGrade;
+
+  openDialog() {
     let dialogRef = this.dialog.open(AddPointsDialogComponent, {
       width: '250px',
-      data: { student: this.student }
+      data: {
+        studentId: this.studentId,
+        courseId: this.subjectId
+      }
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+  onDelete(grade) {
+    this.gradesService.deleteGrade(this.studentId, this.subjectId, grade.id);
+  }
+
+  setFinalGrade() {
+    this.gradesService.createFinalGrade(this.studentId, this.subjectId)
+      .subscribe(finalGrade => this.finalGrade = finalGrade);
   }
 
   ngOnInit() {
+    Observable.combineLatest([this.route.params, this.route.parent.params]).switchMap(
+      ([childParams, parentParams]) => {
+        this.subjectId = +parentParams.subjectid;
+        this.studentId = +childParams.studentid;
+        return this.gradesService.getGrades(this.studentId, this.subjectId);
+      }).subscribe(grades => {
+      this.grades = grades;
+      this.finalGrade = this.grades.finalGrade;
+      this.dataSource = new MatTableDataSource(this.grades.currentGrades);
+    });
   }
-
 }

@@ -1,30 +1,39 @@
 <div class="mat-elevation-z8">
+  <header>
     <button mat-button
-            class="add-button"
             color="primary"
             (click)="openAddSubjectDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add New Subject
+      Add Subject
     </button>
+  </header>
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.subject.name}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    <ng-container matColumnDef="assessmentType">
+      <mat-header-cell *matHeaderCellDef> Assessment Type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.assessmentType.description}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="openEditSubjectDialog(element)">
-          <mat-icon>edit</mat-icon>
+    <ng-container matColumnDef="teachers">
+      <mat-header-cell *matHeaderCellDef> Teachers </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <p *ngFor="let teacher of element.teachers">
+          {{teacher.lastName + ' ' + teacher.firstName + ' ' + teacher.middleName}}
+        </p>
+        <button mat-button
+                color="primary"
+                class="teachers-button"
+                (click)="openGroupSubjectTeachersDialog(element)"
+        >
+          <span *ngIf="element.teachers.length < 1">Add Teachers</span>
+          <span *ngIf="element.teachers.length > 0">Edit Teachers</span>
         </button>
       </mat-cell>
     </ng-container>
@@ -32,7 +41,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element.id)">
+        <button mat-icon-button (click)="onDelete(element.subject.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>
@@ -42,4 +51,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
+
+
 

@@ -13,3 +13,12 @@ h3 {
 button {
   height: 40px;
 }
+
+.cdk-column-delete {
+  max-width: 60px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -10,7 +10,7 @@
 
     <mat-form-field>
       <mat-select placeholder="Speciality" [(value)]="selectedSpeciality">
-        <mat-option *ngFor="let speciality of specialities" [value]="speciality.id">
+        <mat-option *ngFor="let speciality of specialities" [value]="speciality">
           {{ speciality.name }}
         </mat-option>
       </mat-select>

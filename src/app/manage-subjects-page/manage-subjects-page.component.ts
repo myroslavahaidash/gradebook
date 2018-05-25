@@ -2,26 +2,7 @@ import {Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SubjectDialogComponent } from '../subject-dialog/subject-dialog.component';
-
-const SUBJECTS = [
-  {
-    id: 1,
-    name: 'Economics'
-  },
-  {
-    id: 2,
-    name: 'History'
-  },
-  {
-    id: 3,
-    name: 'Literature'
-  },
-  {
-    id: 4,
-    name: 'Management'
-  }
-];
-
+import { SubjectsService } from '../subjects.service';
 
 @Component({
   selector: 'app-manage-subjects-page',
@@ -29,8 +10,15 @@ const SUBJECTS = [
   styleUrls: ['./manage-subjects-page.component.scss']
 })
 export class ManageSubjectsPageComponent implements OnInit {
+
+  constructor(
+    public dialog: MatDialog,
+    private subjectsService: SubjectsService
+  ) { }
+
+  dataSource;
+  subjects;
   displayedColumns = ['subject', 'edit', 'delete'];
-  dataSource = new MatTableDataSource(SUBJECTS);
   @ViewChild(MatSort) sort: MatSort;
 
   applyFilter(filterValue: string) {
@@ -39,37 +27,35 @@ export class ManageSubjectsPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onEdit(subject) {
-
-  }
-
   onDelete(id) {
-    console.log(id);
+    this.subjectsService.deleteSubject(id);
   }
 
   openAddSubjectDialog() {
-    let dialogRef = this.dialog.open(SubjectDialogComponent, {
+    const dialogRef = this.dialog.open(SubjectDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'add'
+      }
     });
   }
 
-  openEditSubjectDialog() {
-    let dialogRef = this.dialog.open(SubjectDialogComponent, {
+  openEditSubjectDialog(subject) {
+    const dialogRef = this.dialog.open(SubjectDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'edit',
+        subject: subject
+      }
     });
   }
-
-  constructor(
-    public dialog: MatDialog
-  ) { }
 
   ngOnInit() {
+    this.subjectsService.getSubjects().subscribe(subjects => {
+      this.subjects = subjects;
+      this.dataSource = new MatTableDataSource(this.subjects);
+    });
+
     this.dataSource.sort = this.sort;
   }
 

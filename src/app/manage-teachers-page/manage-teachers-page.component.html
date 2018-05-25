@@ -18,7 +18,7 @@
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastName + ' ' + element.firstName + ' ' + element.middleName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">

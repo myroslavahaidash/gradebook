@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cdk-column-delete {
+  max-width: 60px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.cdk-column-assessmentType {
+  max-width: 120px;
+}
+
+.teachers-button {
+  padding: 0;
+}

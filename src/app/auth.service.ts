@@ -38,6 +38,14 @@ export class AuthService {
     };
   }
 
+  private getHeaders() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.getToken()}`
+      })
+    };
+  }
+
   login(login, password) {
     return this.http.post('http://localhost:8090/api/auth', {login, password})
       .pipe(
@@ -69,4 +77,11 @@ export class AuthService {
     return this.token;
   }
 
+  changePassword(oldPassword, newPassword) {
+    this.http.post('http://localhost:8090/api/auth/change-password', {oldPassword, newPassword}, this.getHeaders());
+  }
+
+  resetPassword(email) {
+    this.http.post('http://localhost:8090/api/auth/reset-password', {email}).subscribe(() => console.log(email));
+  }
 }

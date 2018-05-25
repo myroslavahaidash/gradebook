@@ -1,28 +1,28 @@
-<h1 mat-dialog-title>New Student</h1>
+<h1 mat-dialog-title *ngIf="mode === 'add'">New Student</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Student</h1>
 
 <div mat-dialog-content>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Last Name">
-  </mat-form-field>
+  <form (submit)="onSubmit()">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lastName">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="text" placeholder="First Name">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="First Name" [(ngModel)]="firstName" name="firstName">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="text" placeholder="По батькові">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="По батькові" [(ngModel)]="middleName" name="middleName">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="email" placeholder="Email">
-  </mat-form-field>
-</div>
+    <mat-form-field *ngIf="mode === 'add'">
+      <input matInput type="email" placeholder="Email" [(ngModel)]="email" name="email">
+    </mat-form-field>
 
-<div mat-dialog-actions>
-  <button mat-raised-button
-          (click)="onAddClick()"
-          color="primary">
-    Add
-  </button>
+    <button mat-raised-button color="primary" type="submit">
+      <span *ngIf="mode === 'add'">Add</span>
+      <span *ngIf="mode === 'edit'">Edit</span>
+    </button>
+  </form>
 </div>
 

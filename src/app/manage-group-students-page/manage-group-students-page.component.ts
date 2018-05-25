@@ -1,23 +1,10 @@
-import {Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { StudentDialogComponent } from '../student-dialog/student-dialog.component';
-
-const STUDENTS = [
-  {
-    id: 1,
-    name: 'Egor Sobolev'
-  },
-  {
-    id: 2,
-    name: 'Anna Ivanova'
-  },
-  {
-    id: 3,
-    name: 'Valeria Andreeva'
-  }
-];
-
+import { StudentsService } from '../students.service';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-manage-group-students-page',
@@ -25,8 +12,16 @@ const STUDENTS = [
   styleUrls: ['./manage-group-students-page.component.scss']
 })
 export class ManageGroupStudentsPageComponent implements OnInit {
+
+  constructor(public dialog: MatDialog,
+              private route: ActivatedRoute,
+              private studentsService: StudentsService) {
+  }
+
   displayedColumns = ['name', 'edit', 'delete'];
-  dataSource = new MatTableDataSource(STUDENTS);
+  dataSource;
+  students;
+  groupId;
   @ViewChild(MatSort) sort: MatSort;
 
   applyFilter(filterValue: string) {
@@ -35,39 +30,39 @@ export class ManageGroupStudentsPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onEdit(subject) {
-
-  }
-
   onDelete(id) {
-    console.log(id);
+    this.studentsService.deleteStudent(id);
   }
 
-  openAddTeacherDialog() {
-    let dialogRef = this.dialog.open(StudentDialogComponent, {
+  openAddStudentDialog() {
+    const dialogRef = this.dialog.open(StudentDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'add',
+        groupId: this.groupId
+      }
     });
   }
 
-  openEditTeacherDialog() {
-    let dialogRef = this.dialog.open(StudentDialogComponent, {
+  openEditStudentDialog(student) {
+    const dialogRef = this.dialog.open(StudentDialogComponent, {
       width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+      data: {
+        mode: 'edit',
+        student
+      }
     });
   }
-
-  constructor(
-    public dialog: MatDialog
-  ) { }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.route.params.switchMap(
+      params => {
+        this.groupId = +params.groupid;
+        return this.studentsService.getStudents(this.groupId);
+      }).subscribe(students => {
+        this.students = students;
+        this.dataSource = new MatTableDataSource(this.students);
+      });
   }
-
 }
 

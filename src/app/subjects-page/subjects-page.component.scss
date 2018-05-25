@@ -1,11 +1,18 @@
-.subject-select {
+.page-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+}
 
-  mat-radio-button {
-    &:first-of-type{
-      margin-right: 20px;
-    }
-  }
+mat-nav-list {
+  width: 200px;
+  margin-right: 20px;
+  background: #ffc947;
+}
+
+.nav-active {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.table-wrapper {
+  width: 100%;
 }

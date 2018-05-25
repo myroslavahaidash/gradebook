@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-change-password-page',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChangePasswordPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
+
+  oldPassword;
+  newPassword;
+
+  onSubmit() {
+    this.authService.changePassword(this.oldPassword, this.newPassword);
+    this.oldPassword = '';
+    this.newPassword = '';
+  }
 
   ngOnInit() {
   }

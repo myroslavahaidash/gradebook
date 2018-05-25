@@ -1,25 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
-
-const date = moment(new Date()).format('ll');
-
-const GRADES = [
-  {
-    points: 10,
-    description: 'Laboratory Work',
-    createdAt: date
-  },
-  {
-    points: 40,
-    description: 'Exam',
-    createdAt: date
-  },
-  {
-    points: 20,
-    description: 'Conference',
-    createdAt: date
-  }
-];
+import { ActivatedRoute } from '@angular/router';
+import { GradesService } from '../grades.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-grades-list',
@@ -27,16 +9,25 @@ const GRADES = [
   styleUrls: ['./grades-list.component.scss']
 })
 export class GradesListComponent implements OnInit {
-  displayedColumns = ['description', 'points', 'createdAt', 'delete'];
-  dataSource = GRADES;
 
-  onDelete(id) {
-    console.log(id);
-  }
+  constructor(
+    private gradesService: GradesService,
+    private route: ActivatedRoute
+  ) { }
 
-  constructor() { }
+  grades;
+  displayedColumns = ['description', 'points', 'createdAt'];
+  dataSource;
+  subjectId;
 
   ngOnInit() {
+    this.route.params.switchMap(params => {
+      this.subjectId = +params.subjectid;
+      return this.gradesService.getStudentGrades(this.subjectId);
+    }).subscribe(grades => {
+      this.grades = grades;
+      this.dataSource = new MatTableDataSource(this.grades.currentGrades);
+    });
   }
 
 }

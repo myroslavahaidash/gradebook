@@ -39,7 +39,7 @@ const routes: Routes = [
     component: SubjectsPageComponent,
     children: [
       {
-        path: ':id',
+        path: ':subjectid',
         component: GradesListComponent
       }
     ]
@@ -51,16 +51,14 @@ const routes: Routes = [
   {
     path: 'groups',
     component: GroupsPageComponent,
+  },
+  {
+    path: 'groups/:groupid/subjects/:subjectid/students',
+    component: StudentsListComponent,
     children: [
       {
-        path: ':groupid/subjects/:subjectid',
-        component: StudentsListComponent,
-        children: [
-          {
-            path: 'students/:id',
-            component: StudentBoardComponent
-          }
-        ]
+        path: ':studentid',
+        component: StudentBoardComponent
       }
     ]
   },
@@ -85,19 +83,19 @@ const routes: Routes = [
         path: 'groups',
         component: ManageGroupsPageComponent
       },
-    ]
-  },
-  {
-    path: 'manage/groups/:groupid/students',
-    component: ManageGroupStudentsPageComponent
-  },
-  {
-    path: 'manage/groups/:groupid/subjects',
-    component: ManageGroupSubjectsPageComponent,
-    children: [
       {
-        path: 'year/:year/semester/:semester',
-        component: GroupSubjectsListComponent
+        path: 'groups/:groupid/students',
+        component: ManageGroupStudentsPageComponent
+      },
+      {
+        path: 'groups/:groupid/subjects',
+        component: ManageGroupSubjectsPageComponent,
+        children: [
+          {
+            path: 'year/:year/semesters/:semester',
+            component: GroupSubjectsListComponent
+          }
+        ]
       }
     ]
   },

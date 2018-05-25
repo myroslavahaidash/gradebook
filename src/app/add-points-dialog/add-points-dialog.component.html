@@ -1,15 +1,21 @@
-<h1 mat-dialog-title>Add points for {{data.student.name}}</h1>
+<h1 mat-dialog-title>Add grade</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <input matInput type="number" placeholder="Number of points">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Description">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="date" placeholder="Date" [ngModel] ="date | date:'yyyy-MM-dd'" (ngModelChange)="date = $event">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onAddClick()" color="primary">Add</button>
+  <form (submit)="onSubmit()">
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Number of points" [(ngModel)]="value" name="value">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Description" [(ngModel)]="description" name="description">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary">Add</button>
+  </form>
 </div>

@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Edit Teachers of This Subject</h1>
+
+<div mat-dialog-content>
+  <div>
+    <div *ngFor="let teacher of data.subject.teachers" class="teacher">
+      <div class="teacher-name">{{teacher.lastName + ' ' + teacher.firstName + ' ' + teacher.middleName}}</div>
+      <button mat-icon-button (click)="onDelete(teacher)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <form (submit)="onSubmit()">
+
+    <mat-form-field>
+      <mat-select placeholder="Teacher" [(value)]="selectedTeacher">
+        <mat-option *ngFor="let teacher of teachers" [value]="teacher">
+          {{teacher.lastName + ' ' + teacher.firstName + ' ' + teacher.middleName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      <span>Save</span>
+    </button>
+  </form>
+</div>
+

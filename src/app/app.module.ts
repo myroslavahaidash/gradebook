@@ -37,6 +37,14 @@ import { AdminGuard } from './admin-guard.service';
 import { DefaultGuard } from './default-guard.service';
 import { SpecialitiesService } from './specialities.service';
 import { GroupsService } from './groups.service';
+import { SubjectsService } from './subjects.service';
+import { TeachersService } from './teachers.service';
+import { StudentsService } from './students.service';
+import { GroupScheduleService } from './group-schedule.service';
+import { GroupSubjectTeachersDialogComponent } from './group-subject-teachers-dialog/group-subject-teachers-dialog.component';
+import { TeacherGroupsService } from './teacher-groups.service';
+import { GradesService } from './grades.service';
+import { LetterGradePipe } from './letter-grade.pipe';
 
 
 @NgModule({
@@ -66,7 +74,9 @@ import { GroupsService } from './groups.service';
     ManageGroupSubjectsPageComponent,
     StudentDialogComponent,
     GroupSubjectDialogComponent,
-    GroupSubjectsListComponent
+    GroupSubjectsListComponent,
+    GroupSubjectTeachersDialogComponent,
+    LetterGradePipe
   ],
   entryComponents: [
     AddPointsDialogComponent,
@@ -75,7 +85,8 @@ import { GroupsService } from './groups.service';
     TeacherDialogComponent,
     GroupDialogComponent,
     StudentDialogComponent,
-    GroupSubjectDialogComponent
+    GroupSubjectDialogComponent,
+    GroupSubjectTeachersDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +101,13 @@ import { GroupsService } from './groups.service';
     AdminGuard,
     DefaultGuard,
     SpecialitiesService,
-    GroupsService
+    GroupsService,
+    SubjectsService,
+    TeachersService,
+    StudentsService,
+    GroupScheduleService,
+    TeacherGroupsService,
+    GradesService
   ],
   bootstrap: [AppComponent]
 })
