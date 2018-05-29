@@ -1,21 +1,21 @@
-<h1 mat-dialog-title>Add grade</h1>
+<h1 mat-dialog-title>Додати бали</h1>
 <div mat-dialog-content>
   <form (submit)="onSubmit()">
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Number of points" [(ngModel)]="value" name="value">
+      <input matInput type="number" placeholder="Кількість балів" [(ngModel)]="value" name="value">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="text" placeholder="Description" [(ngModel)]="description" name="description">
+      <input matInput type="text" placeholder="Опис оцінюваної роботи" [(ngModel)]="description" name="description">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+      <input matInput [matDatepicker]="picker" placeholder="Дата" [(ngModel)]="date" name="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <button mat-raised-button type="submit" color="primary">Add</button>
+    <button mat-raised-button type="submit" color="primary">Додати</button>
   </form>
 </div>

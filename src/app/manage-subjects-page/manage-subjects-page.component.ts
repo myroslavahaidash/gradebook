@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SubjectDialogComponent } from '../subject-dialog/subject-dialog.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { SubjectsService } from '../subjects.service';
 
 @Component({
@@ -27,8 +28,20 @@ export class ManageSubjectsPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onDelete(id) {
-    this.subjectsService.deleteSubject(id);
+  onDelete(subject) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення предмета',
+        itemName: subject.name
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.subjectsService.deleteSubject(subject.id);
+      }
+    });
   }
 
   openAddSubjectDialog() {

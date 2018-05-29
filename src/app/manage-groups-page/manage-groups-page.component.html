@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
   <header>
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Пошук">
     </mat-form-field>
 
     <button mat-button
@@ -10,33 +10,33 @@
             (click)="openAddGroupDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add New Group
+      Додати нову групу
     </button>
   </header>
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="group">
-      <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Група </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="speciality">
-      <mat-header-cell *matHeaderCellDef> Speciality </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Спеціальність </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.speciality.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="students">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <a [routerLink]="[element.id, 'students']">Students</a>
+        <a [routerLink]="[element.id, 'students']">Студенти</a>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="subjects">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <a [routerLink]="[element.id, 'subjects']">Subjects</a>
+        <a [routerLink]="[element.id, 'subjects']">Предмети</a>
       </mat-cell>
     </ng-container>
 
@@ -52,7 +52,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element.id)">
+        <button mat-icon-button (click)="onDelete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

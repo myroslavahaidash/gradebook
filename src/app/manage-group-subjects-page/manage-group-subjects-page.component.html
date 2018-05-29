@@ -1,4 +1,4 @@
-<h2>Group: {{group.code}}</h2>
+<h2>Група {{group.code}}</h2>
 <div class="flex-wrapper">
   <mat-nav-list>
     <a mat-list-item
@@ -6,7 +6,12 @@
        routerLinkActive="nav-active"
        *ngFor="let semester of semesters"
     >
-      {{semester.courseNumber + ' course ' + semester.semesterNumber + ' semester' }}
+      <span>
+        {{semester.courseNumber + ' курс ' + semester.semesterNumber + ' семестр' }}
+      </span>
+      <span *ngIf="semester.isCurrent" title="Поточний семестр">
+        *
+      </span>
     </a>
   </mat-nav-list>
   <div class="table-wrapper">

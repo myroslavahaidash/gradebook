@@ -2,12 +2,12 @@
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="group">
-      <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Група </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.group.code}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="subjects">
-      <mat-header-cell *matHeaderCellDef> Subjects </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Предмети </mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a [routerLink]="[element.group.id, 'subjects', subject.id, 'students']" *ngFor="let subject of element.subjects">{{subject.name}}</a>
       </mat-cell>

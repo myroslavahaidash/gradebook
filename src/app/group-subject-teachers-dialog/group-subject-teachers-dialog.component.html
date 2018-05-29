@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Edit Teachers of This Subject</h1>
+<h1 mat-dialog-title>Редагування викладачів курсу</h1>
 
 <div mat-dialog-content>
   <div>
@@ -13,7 +13,7 @@
   <form (submit)="onSubmit()">
 
     <mat-form-field>
-      <mat-select placeholder="Teacher" [(value)]="selectedTeacher">
+      <mat-select placeholder="Викладач" [(value)]="selectedTeacher">
         <mat-option *ngFor="let teacher of teachers" [value]="teacher">
           {{teacher.lastName + ' ' + teacher.firstName + ' ' + teacher.middleName}}
         </mat-option>
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">
-      <span>Save</span>
+      <span>Додати</span>
     </button>
   </form>
 </div>

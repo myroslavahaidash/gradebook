@@ -1,14 +1,14 @@
-<h1 mat-dialog-title *ngIf="mode === 'add'">New Subject</h1>
-<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Subject</h1>
+<h1 mat-dialog-title *ngIf="mode === 'add'">Новий предмет</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Редагування предмета</h1>
 <div mat-dialog-content>
   <p *ngIf="mode === 'edit'">{{data.subject.name}}</p>
   <form (submit)="onSubmit()">
     <mat-form-field>
-      <input matInput type="text" placeholder="Name" [(ngModel)]="name" name="name">
+      <input matInput type="text" placeholder="Назва" [(ngModel)]="name" name="name">
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">
-      <span *ngIf="mode === 'add'">Add</span>
-      <span *ngIf="mode === 'edit'">Edit</span>
+      <span *ngIf="mode === 'add'">Додати</span>
+      <span *ngIf="mode === 'edit'">Редагувати</span>
     </button>
   </form>
 </div>

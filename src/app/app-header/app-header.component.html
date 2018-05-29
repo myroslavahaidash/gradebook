@@ -1,12 +1,41 @@
 <header *ngIf="userProfile">
   <nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="['/subjects']" routerLinkActive="nav-active">Subjects</a>
-    <a mat-tab-link [routerLink]="['/final-grades']" routerLinkActive="nav-active">Final Grades</a>
-    <a mat-tab-link [routerLink]="['/groups']" routerLinkActive="nav-active">Groups</a>
-    <a mat-tab-link [routerLink]="['/manage/groups']" routerLinkActive="nav-active">Mng-Groups</a>
-    <a mat-tab-link [routerLink]="['/manage/subjects']" routerLinkActive="nav-active">Mng-Subjects</a>
-    <a mat-tab-link [routerLink]="['/manage/specialities']" routerLinkActive="nav-active">Mng-Specialities</a>
-    <a mat-tab-link [routerLink]="['/manage/teachers']" routerLinkActive="nav-active">Mng-Teachers</a>
+
+    <a mat-tab-link [routerLink]="['/subjects']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'student'">
+      Предмети
+    </a>
+
+    <a mat-tab-link [routerLink]="['/final-grades']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'student'">
+      Остаточні оцінки
+    </a>
+
+    <a mat-tab-link [routerLink]="['/groups']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'teacher'">
+      Групи
+    </a>
+
+    <a mat-tab-link [routerLink]="['/manage/groups']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'admin'">
+      Групи
+    </a>
+
+    <a mat-tab-link [routerLink]="['/manage/subjects']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'admin'">
+      Предмети
+    </a>
+
+    <a mat-tab-link [routerLink]="['/manage/specialities']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'admin'">
+      Спеціальності
+    </a>
+
+    <a mat-tab-link [routerLink]="['/manage/teachers']" routerLinkActive="nav-active"
+       *ngIf="userProfile.role === 'admin'">
+      Викладачі
+    </a>
+
   </nav>
   <app-user-area></app-user-area>
 </header>

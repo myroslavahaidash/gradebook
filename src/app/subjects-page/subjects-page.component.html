@@ -1,5 +1,5 @@
 <div class="page-wrapper">
-  <mat-nav-list>
+  <mat-nav-list role="navigation">
     <a mat-list-item [routerLink]="[subject.subject.id]" routerLinkActive="nav-active" *ngFor="let subject of subjects">
       {{subject.subject.name}}
     </a>

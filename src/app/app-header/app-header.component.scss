@@ -1,13 +1,21 @@
 header {
-  background: #ffc947;
+  color: white;
+  background: #3f51b5;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+nav {
+  border-bottom: 0;
 }
 
 .mat-tab-link {
   min-width: 140px;
+  color: white;
+  opacity: 1;
 }
 
 .nav-active {

@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Add Subject To This Group</h1>
+<h1 mat-dialog-title>Додати предмет для групи</h1>
 
 <div mat-dialog-content>
   <form (submit)="onSubmit()">
 
     <mat-form-field>
-      <mat-select placeholder="Subject" [(value)]="selectedSubject">
+      <mat-select placeholder="Предмет" [(value)]="selectedSubject">
         <mat-option *ngFor="let subject of subjects" [value]="subject">
           {{ subject.name }}
         </mat-option>
@@ -18,7 +18,7 @@
     </mat-radio-group>
 
     <button mat-raised-button color="primary" type="submit">
-      <span>Add</span>
+      <span>Додати</span>
     </button>
   </form>
 </div>

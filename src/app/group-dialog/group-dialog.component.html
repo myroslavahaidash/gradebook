@@ -1,15 +1,14 @@
-<h1 mat-dialog-title *ngIf="mode === 'add'">New Group</h1>
-<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Group</h1>
+<h1 mat-dialog-title *ngIf="mode === 'add'">Нова група</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Редагування групи</h1>
 <div mat-dialog-content>
-  <p *ngIf="mode === 'edit'">Editing {{data.group.code}}</p>
   <form (submit)="onSubmit()">
 
     <mat-form-field>
-      <input matInput type="text" placeholder="Code" [(ngModel)]="code" name="code">
+      <input matInput type="text" placeholder="Код групи" [(ngModel)]="code" name="code">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Speciality" [(value)]="selectedSpeciality">
+      <mat-select placeholder="Спеціальність" [(value)]="selectedSpeciality">
         <mat-option *ngFor="let speciality of specialities" [value]="speciality">
           {{ speciality.name }}
         </mat-option>
@@ -17,14 +16,14 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="mode === 'add'">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+      <input matInput [matDatepicker]="picker" placeholder="Дата початку навчання" [(ngModel)]="date" name="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">
-      <span *ngIf="mode === 'add'">Add</span>
-      <span *ngIf="mode === 'edit'">Edit</span>
+      <span *ngIf="mode === 'add'">Додати</span>
+      <span *ngIf="mode === 'edit'">Редагувати</span>
     </button>
   </form>
 </div>

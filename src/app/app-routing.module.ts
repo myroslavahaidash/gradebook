@@ -17,7 +17,9 @@ import { ManageGroupStudentsPageComponent } from './manage-group-students-page/m
 import { ManageGroupSubjectsPageComponent } from './manage-group-subjects-page/manage-group-subjects-page.component';
 import { GroupSubjectsListComponent } from './group-subjects-list/group-subjects-list.component';
 import { AdminGuard } from './admin-guard.service';
+import { TeacherGuard } from './teacher-guard.service';
 import { DefaultGuard } from './default-guard.service';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
 
 const routes: Routes = [
   {
@@ -39,6 +41,11 @@ const routes: Routes = [
     component: SubjectsPageComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        component: PlaceholderComponent
+      },
+      {
         path: ':subjectid',
         component: GradesListComponent
       }
@@ -51,10 +58,13 @@ const routes: Routes = [
   {
     path: 'groups',
     component: GroupsPageComponent,
+    canActivate: [ TeacherGuard ]
   },
   {
     path: 'groups/:groupid/subjects/:subjectid/students',
     component: StudentsListComponent,
+    canActivate: [ TeacherGuard ],
+    canActivateChild: [ TeacherGuard ],
     children: [
       {
         path: ':studentid',

@@ -1,16 +1,16 @@
 <mat-card>
-  <mat-card-title>Login to GradeBook</mat-card-title>
+  <mat-card-title>Вхід</mat-card-title>
   <mat-card-content>
     <form (submit)="onSubmit()">
       <mat-form-field>
         <input matInput placeholder="Email" [(ngModel)]="login" name="login">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password">
+        <input matInput placeholder="Пароль" type="password" [(ngModel)]="password" name="password">
       </mat-form-field>
-      <button mat-raised-button type="submit">Submit</button>
+      <button mat-raised-button type="submit" color="primary">Увійти</button>
     </form>
-    <a [routerLink]="['/forgot_password']">Forgot password?</a>
+    <a [routerLink]="['/forgot_password']">Отримати пароль</a>
   </mat-card-content>
 </mat-card>
 

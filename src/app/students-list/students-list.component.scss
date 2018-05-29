@@ -1,15 +1,15 @@
-.page-wrapper {
+.flex-wrapper {
   display: flex;
 }
 
 mat-nav-list {
   width: 200px;
   margin-right: 20px;
-  background: #ffc947;
+  background: #757de8;
 }
 
 .nav-active {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
   color: #000;
 }
 

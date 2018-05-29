@@ -1,47 +1,50 @@
 <mat-card>
   <header>
+    <h3 *ngIf="student.firstName">{{student.lastName + ' ' + student.firstName}}</h3>
     <button mat-button
             color="primary"
             class="add-points-button"
             (click)="openDialog()"
+            *ngIf="finalGrade === null"
     >
       <mat-icon>star_rate</mat-icon>
-      Add Points
+      Додати бали
     </button>
     <button mat-button
             color="accent"
             class="add-points-button"
             (click)="setFinalGrade()"
+            *ngIf="currentGradesTotal > 59 && finalGrade === null"
     >
       <mat-icon>star_rate</mat-icon>
-      Set final grade
+      Поставити остаточну оцінку
     </button>
     <div *ngIf="finalGrade">
-      Final grade: {{finalGrade.value}}
+      Оцінка за курс: {{finalGrade.value}}
     </div>
   </header>
 
   <mat-table *ngIf="grades" #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Опис </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="points">
-      <mat-header-cell *matHeaderCellDef> Points </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Кількість балів </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createdAt">
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Дата </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element)">
+        <button mat-icon-button (click)="onDelete(element)" *ngIf="finalGrade === null">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

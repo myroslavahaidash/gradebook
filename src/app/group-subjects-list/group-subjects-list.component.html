@@ -5,24 +5,24 @@
             (click)="openAddSubjectDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add Subject
+      Додати предмет
     </button>
   </header>
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Предмет </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.subject.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="assessmentType">
-      <mat-header-cell *matHeaderCellDef> Assessment Type </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Вид контролю </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.assessmentType.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="teachers">
-      <mat-header-cell *matHeaderCellDef> Teachers </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Викладачі </mat-header-cell>
       <mat-cell *matCellDef="let element">
         <p *ngFor="let teacher of element.teachers">
           {{teacher.lastName + ' ' + teacher.firstName + ' ' + teacher.middleName}}
@@ -32,8 +32,8 @@
                 class="teachers-button"
                 (click)="openGroupSubjectTeachersDialog(element)"
         >
-          <span *ngIf="element.teachers.length < 1">Add Teachers</span>
-          <span *ngIf="element.teachers.length > 0">Edit Teachers</span>
+          <span *ngIf="element.teachers.length < 1">Додати викладачів</span>
+          <span *ngIf="element.teachers.length > 0">Редагувати викладачів</span>
         </button>
       </mat-cell>
     </ng-container>
@@ -41,7 +41,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element.subject.id)">
+        <button mat-icon-button (click)="onDelete(element.subject)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GroupScheduleService } from '../group-schedule.service';
 import { GroupsService } from '../groups.service';
 import { MatTableDataSource } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -14,7 +14,8 @@ export class ManageGroupSubjectsPageComponent implements OnInit {
   constructor(
     private groupScheduleService: GroupScheduleService,
     private groupsService: GroupsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   groupId;
@@ -29,8 +30,8 @@ export class ManageGroupSubjectsPageComponent implements OnInit {
         this.groupId = +params.groupid;
         return this.groupScheduleService.getGroupSemesters(this.groupId);
       }).subscribe(semesters => {
-      this.semesters = semesters;
-      this.dataSource = new MatTableDataSource(this.semesters);
+        this.semesters = semesters;
+        this.dataSource = new MatTableDataSource(this.semesters);
     });
 
     this.route.params.switchMap(

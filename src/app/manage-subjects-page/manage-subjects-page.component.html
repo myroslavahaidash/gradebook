@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
   <header>
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Пошук">
     </mat-form-field>
 
     <button mat-button
@@ -10,14 +10,14 @@
             (click)="openAddSubjectDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add New Subject
+      Додати новий предмет
     </button>
   </header>
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Предмет </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
@@ -33,7 +33,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element.id)">
+        <button mat-icon-button (click)="onDelete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

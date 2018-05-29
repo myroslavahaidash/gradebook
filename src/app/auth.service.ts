@@ -78,7 +78,9 @@ export class AuthService {
   }
 
   changePassword(oldPassword, newPassword) {
-    this.http.post('http://localhost:8090/api/auth/change-password', {oldPassword, newPassword}, this.getHeaders());
+    console.log(oldPassword, newPassword);
+    this.http.post('http://localhost:8090/api/auth/change-password', {oldPassword, newPassword}, this.getHeaders())
+      .subscribe(() => {});
   }
 
   resetPassword(email) {

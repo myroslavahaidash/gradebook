@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { StudentDialogComponent } from '../student-dialog/student-dialog.component';
 import { StudentsService } from '../students.service';
+import { GroupsService } from '../groups.service';
 import 'rxjs/add/operator/switchMap';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-manage-group-students-page',
@@ -13,25 +15,33 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ManageGroupStudentsPageComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,
-              private route: ActivatedRoute,
-              private studentsService: StudentsService) {
-  }
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private studentsService: StudentsService,
+    private groupsService: GroupsService
+  ) {}
 
   displayedColumns = ['name', 'edit', 'delete'];
   dataSource;
   students;
   groupId;
-  @ViewChild(MatSort) sort: MatSort;
+  group;
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-  }
+  onDelete(student) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення студента',
+        itemName: `${student.lastName} ${student.firstName} ${student.middleName}`
+      }
+    });
 
-  onDelete(id) {
-    this.studentsService.deleteStudent(id);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.studentsService.deleteStudent(student.id);
+      }
+    });
   }
 
   openAddStudentDialog() {
@@ -63,6 +73,14 @@ export class ManageGroupStudentsPageComponent implements OnInit {
         this.students = students;
         this.dataSource = new MatTableDataSource(this.students);
       });
+
+    this.route.params.switchMap(
+      params => {
+        this.groupId = +params.groupid;
+        return this.groupsService.getGroup(this.groupId);
+      }).subscribe(group => {
+      this.group = group;
+    });
   }
 }
 

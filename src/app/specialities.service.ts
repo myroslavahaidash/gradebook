@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject} from 'rxjs';
 import { AuthService } from './auth.service';
+import { orderBy } from 'lodash';
 
 @Injectable()
 export class SpecialitiesService {
@@ -25,7 +26,8 @@ export class SpecialitiesService {
 
   getSpecialities () {
     this.http.get('http://localhost:8090/api/specialities', this.getHeaders())
-      .subscribe(specialities => this.specialities.next(specialities));
+      .subscribe(specialities => this.specialities
+        .next(orderBy(specialities, 'name', 'asc')));
 
     return this.specialities.asObservable();
   }
@@ -34,7 +36,7 @@ export class SpecialitiesService {
     this.http.put('http://localhost:8090/api/specialities', {code, name}, this.getHeaders())
       .subscribe(speciality => {
         this.specialities.value.push(speciality);
-        this.specialities.next(this.specialities.value);
+        this.specialities.next(orderBy(this.specialities.value, 'name', 'asc'));
       });
   }
 

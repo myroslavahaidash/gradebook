@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { GroupDialogComponent } from '../group-dialog/group-dialog.component';
 import { GroupsService } from '../groups.service';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -28,8 +29,20 @@ export class ManageGroupsPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onDelete(id) {
-    this.groupsService.deleteGroup(id);
+  onDelete(group) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення групи',
+        itemName: group.code
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.groupsService.deleteGroup(group.id);
+      }
+    });
   }
 
   openAddGroupDialog() {

@@ -1,14 +1,14 @@
-<h1 mat-dialog-title *ngIf="mode === 'add'">New Student</h1>
-<h1 mat-dialog-title *ngIf="mode === 'edit'">Edit Student</h1>
+<h1 mat-dialog-title *ngIf="mode === 'add'">Додавання студента</h1>
+<h1 mat-dialog-title *ngIf="mode === 'edit'">Редагування студента</h1>
 
 <div mat-dialog-content>
   <form (submit)="onSubmit()">
     <mat-form-field>
-      <input matInput type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lastName">
+      <input matInput type="text" placeholder="Прізвище" [(ngModel)]="lastName" name="lastName">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="text" placeholder="First Name" [(ngModel)]="firstName" name="firstName">
+      <input matInput type="text" placeholder="Ім'я" [(ngModel)]="firstName" name="firstName">
     </mat-form-field>
 
     <mat-form-field>
@@ -20,8 +20,8 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">
-      <span *ngIf="mode === 'add'">Add</span>
-      <span *ngIf="mode === 'edit'">Edit</span>
+      <span *ngIf="mode === 'add'">Додати</span>
+      <span *ngIf="mode === 'edit'">Редагувати</span>
     </button>
   </form>
 </div>

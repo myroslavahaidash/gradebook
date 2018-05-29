@@ -8,6 +8,7 @@ import { GroupSubjectTeachersDialogComponent } from '../group-subject-teachers-d
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/combineLatest';
 import { Observable} from 'rxjs/Observable';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-group-subjects-list',
@@ -52,8 +53,20 @@ export class GroupSubjectsListComponent implements OnInit {
     });
   }
 
-  onDelete(id) {
-    this.groupScheduleService.deleteGroupSemesterSubject(this.groupId, this.year, this.semester, id);
+  onDelete(subject) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення предмета групи',
+        itemName: subject.name
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.groupScheduleService.deleteGroupSemesterSubject(this.groupId, this.year, this.semester, subject.id);
+      }
+    });
   }
 
   ngOnInit() {

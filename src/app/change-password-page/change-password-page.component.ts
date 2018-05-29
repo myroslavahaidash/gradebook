@@ -17,8 +17,6 @@ export class ChangePasswordPageComponent implements OnInit {
 
   onSubmit() {
     this.authService.changePassword(this.oldPassword, this.newPassword);
-    this.oldPassword = '';
-    this.newPassword = '';
   }
 
   ngOnInit() {

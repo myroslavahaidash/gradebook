@@ -1,8 +1,6 @@
 <div class="mat-elevation-z8">
   <header>
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
+    <h2>Група {{group.code}}</h2>
 
     <button mat-button
             class="add-button"
@@ -10,14 +8,14 @@
             (click)="openAddStudentDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add New Student
+      Додати студента
     </button>
   </header>
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> ПІБ студента </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.lastName + ' ' + element.firstName + ' ' + element.middleName}} </mat-cell>
     </ng-container>
 
@@ -33,7 +31,7 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button (click)="onDelete(element.id)">
+        <button mat-icon-button (click)="onDelete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

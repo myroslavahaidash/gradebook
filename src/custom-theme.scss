@@ -2,9 +2,9 @@
 
 @include mat-core();
 
-$grades-app-primary: mat-palette($mat-light-green);
+$grades-app-primary: mat-palette($mat-indigo);
 
-$grades-app-accent:  mat-palette($mat-amber);
+$grades-app-accent:  mat-palette($mat-blue);
 
 $grades-app-warn:    mat-palette($mat-red);
 

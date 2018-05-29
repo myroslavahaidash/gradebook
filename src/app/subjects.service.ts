@@ -11,10 +11,12 @@ export class SubjectsService {
     private authService: AuthService
   ) {
     this.subjects = new BehaviorSubject<any>([]);
+    this.subject = new BehaviorSubject<any>({});
     this.studentCurrentSubjects = new BehaviorSubject<any>([]);
   }
 
   private subjects: BehaviorSubject<any>;
+  private subject: BehaviorSubject<any>;
   private studentCurrentSubjects: BehaviorSubject<any>;
 
   private getHeaders() {
@@ -30,6 +32,13 @@ export class SubjectsService {
       .subscribe(subjects => this.subjects.next(subjects));
 
     return this.subjects.asObservable();
+  }
+
+  getSubject (id) {
+    this.http.get(`http://localhost:8090/api/subjects/${id}`, this.getHeaders())
+      .subscribe(subject => this.subject.next(subject));
+
+    return this.subject.asObservable();
   }
 
   createSubject(name) {

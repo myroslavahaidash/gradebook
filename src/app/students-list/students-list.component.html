@@ -1,4 +1,5 @@
-<div class="page-wrapper">
+<h2>{{group.code}} - {{subject.name}}</h2>
+<div class="flex-wrapper">
   <mat-nav-list>
     <a mat-list-item [routerLink]="[student.id]" routerLinkActive="nav-active" *ngFor="let student of students">
       {{student.lastName + ' ' + student.firstName }}

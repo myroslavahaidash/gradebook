@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { CanActivate, CanActivateChild, Router} from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AdminGuard implements CanActivate, CanActivateChild {
+export class StudentGuard implements CanActivate, CanActivateChild {
 
   userProfile;
 
@@ -18,7 +18,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate() {
-    if (this.userProfile && this.userProfile.role === 'admin') {
+    if (this.userProfile && this.userProfile.role === 'student') {
       return true;
     } else {
       this.router.navigate(['/login']);
@@ -31,3 +31,5 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   }
 
 }
+
+

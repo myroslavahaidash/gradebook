@@ -45,6 +45,10 @@ import { GroupSubjectTeachersDialogComponent } from './group-subject-teachers-di
 import { TeacherGroupsService } from './teacher-groups.service';
 import { GradesService } from './grades.service';
 import { LetterGradePipe } from './letter-grade.pipe';
+import {TeacherGuard} from './teacher-guard.service';
+import {StudentGuard} from './student-guard.service';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
 
 
 @NgModule({
@@ -76,7 +80,9 @@ import { LetterGradePipe } from './letter-grade.pipe';
     GroupSubjectDialogComponent,
     GroupSubjectsListComponent,
     GroupSubjectTeachersDialogComponent,
-    LetterGradePipe
+    LetterGradePipe,
+    ConfirmationDialogComponent,
+    PlaceholderComponent
   ],
   entryComponents: [
     AddPointsDialogComponent,
@@ -86,7 +92,8 @@ import { LetterGradePipe } from './letter-grade.pipe';
     GroupDialogComponent,
     StudentDialogComponent,
     GroupSubjectDialogComponent,
-    GroupSubjectTeachersDialogComponent
+    GroupSubjectTeachersDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +106,8 @@ import { LetterGradePipe } from './letter-grade.pipe';
   providers: [
     AuthService,
     AdminGuard,
+    TeacherGuard,
+    StudentGuard,
     DefaultGuard,
     SpecialitiesService,
     GroupsService,

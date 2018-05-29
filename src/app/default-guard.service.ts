@@ -12,7 +12,9 @@ export class DefaultGuard implements CanActivate {
     private authService: AuthService,
     private router: Router
   ) {
-    this.authService.getUserProfile().subscribe(userProfile => userProfile ? this.role = userProfile.role : 'unauthorized');
+    this.authService.getUserProfile().subscribe(userProfile => {
+       this.role = userProfile ? userProfile.role : 'unauthorized';
+    });
   }
 
   canActivate() {

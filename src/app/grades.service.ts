@@ -41,6 +41,7 @@ export class GradesService {
       {value, description, createdAt}, this.getHeaders())
       .subscribe(grade => {
         this.grades.value.currentGrades.push(grade);
+       // this.grades.value.currentGradesTotal += grade.value; TODO Uncomment
         this.grades.next(this.grades.value);
     });
   }
@@ -48,6 +49,7 @@ export class GradesService {
   deleteGrade(studentId, courseId, gradeId) {
     this.http.delete(`http://localhost:8090/api/students/${studentId}/courses/${courseId}/grades/${gradeId}`, this.getHeaders())
       .subscribe(() => {
+        this.grades.value.currentGradesTotal -= this.grades.value.currentGrades.find(g => g.id === gradeId).value;
         this.grades.value.currentGrades = this.grades.value.currentGrades.filter(g => g.id !== gradeId);
         this.grades.next(this.grades.value);
       });

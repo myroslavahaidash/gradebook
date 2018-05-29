@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject} from 'rxjs';
 import { AuthService } from './auth.service';
+import { orderBy } from 'lodash';
 
 @Injectable()
 export class GroupsService {
@@ -29,7 +30,7 @@ export class GroupsService {
 
   getGroups() {
     this.http.get('http://localhost:8090/api/groups', this.getHeaders())
-      .subscribe(groups => this.groups.next(groups));
+      .subscribe(groups => this.groups.next(orderBy(groups, 'code', 'asc')));
 
     return this.groups.asObservable();
   }
@@ -43,7 +44,8 @@ export class GroupsService {
 
   getGroupStudents(groupId) {
     this.http.get(`http://localhost:8090/api/groups/${groupId}/students`, this.getHeaders())
-      .subscribe(groupStudents => this.groupStudents.next(groupStudents));
+      .subscribe(groupStudents => this.groupStudents
+        .next(orderBy(groupStudents, ['lastName', 'firstName', 'middleName'], ['asc', 'asc', 'asc'])));
 
     return this.groupStudents.asObservable();
   }
@@ -52,7 +54,7 @@ export class GroupsService {
     this.http.put('http://localhost:8090/api/groups', {code, educationStartedAt, specialityId}, this.getHeaders())
       .subscribe(group => {
         this.groups.value.push(group);
-        this.groups.next(this.groups.value);
+        this.groups.next(orderBy(this.groups.value, 'code', 'asc'));
       });
   }
 

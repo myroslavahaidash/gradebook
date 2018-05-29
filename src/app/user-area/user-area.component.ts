@@ -8,6 +8,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./user-area.component.scss']
 })
 export class UserAreaComponent implements OnInit {
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
+
   user;
 
   onChangePasswordClick() {
@@ -18,11 +24,6 @@ export class UserAreaComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['login']);
   }
-
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) { }
 
   ngOnInit() {
     this.authService.getUserProfile().subscribe(userProfile => this.user = userProfile);

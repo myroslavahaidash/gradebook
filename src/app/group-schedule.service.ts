@@ -42,6 +42,7 @@ export class GroupScheduleService {
         semesters.forEach(semester => {
           const year = new Date(semester.startsAt).getFullYear();
           semester.year = semester.semesterNumber === 2 ? year - 1 : year;
+          semester.isCurrent = new Date(semester.startsAt) <= new Date() && new Date(semester.endsAt) >= new Date();
         });
         this.semesters.next(semesters);
       });

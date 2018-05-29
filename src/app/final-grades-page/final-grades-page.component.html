@@ -1,44 +1,48 @@
 <div class="example-container mat-elevation-z8">
   <div class="header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    <mat-form-field *ngIf="finalGrades && (finalGrades.length > 0)">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Пошук">
     </mat-form-field>
+
+    <div class="placeholder" *ngIf="!finalGrades || (finalGrades.length < 1)">
+      Остаточні оцінки відсутні
+    </div>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <mat-table #table [dataSource]="dataSource" matSort *ngIf="finalGrades && (finalGrades.length > 0)">
 
     <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Предмет </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.subject.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="assessmentType">
-      <mat-header-cell *matHeaderCellDef> Assessment type </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Вид контролю </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.assessmentType.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="points">
-      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Points </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Кількість балів </mat-header-cell>
       <mat-cell *matCellDef="let element" class="centered-cell"> {{element.value}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="mark">
-      <mat-header-cell *matHeaderCellDef class="centered-cell"> Mark </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="centered-cell"> Оцінка </mat-header-cell>
       <mat-cell *matCellDef="let element" class="centered-cell"> {{element.value | letterGrade}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="course">
-      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Course </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="centered-cell" mat-sort-header> Курс </mat-header-cell>
       <mat-cell *matCellDef="let element" class="centered-cell"> {{element.semester.courseNumber}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="semester">
-      <mat-header-cell *matHeaderCellDef class="centered-cell"> Semester </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="centered-cell"> Семестр </mat-header-cell>
       <mat-cell *matCellDef="let element" class="centered-cell"> {{element.semester.semesterNumber}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="teacher">
-      <mat-header-cell *matHeaderCellDef> Teacher </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> ПІБ викладача </mat-header-cell>
       <mat-cell *matCellDef="let element">
         {{element.teacher.lastName + ' ' + element.teacher.firstName + ' ' + element.teacher.middleName}}
       </mat-cell>

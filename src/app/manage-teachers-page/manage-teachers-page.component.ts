@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { TeacherDialogComponent } from '../teacher-dialog/teacher-dialog.component';
 import { TeachersService } from '../teachers.service';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-manage-teachers-page',
@@ -27,8 +28,20 @@ export class ManageTeachersPageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  onDelete(id) {
-    this.teachersService.deleteTeacher(id);
+  onDelete(teacher) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення викладача',
+        itemName: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.teachersService.deleteTeacher(teacher.id);
+      }
+    });
   }
 
   openAddTeacherDialog() {

@@ -42,7 +42,6 @@ export class GroupDialogComponent implements OnInit {
       if (this.data.mode === 'edit' && this.data.group) {
         this.code = this.data.group.code;
         this.selectedSpeciality = this.specialities.find(speciality => speciality.id === this.data.group.speciality.id);
-        // console.log(this.selectedSpeciality);
       }
     });
   }

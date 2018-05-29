@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SpecialityDialogComponent } from '../speciality-dialog/speciality-dialog.component';
 import { SpecialitiesService } from '../specialities.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -37,8 +38,20 @@ export class ManageSpecialitiesPageComponent implements OnInit {
     });
   }
 
-  onDelete(id) {
-    this.specialitiesService.deleteSpeciality(id);
+  onDelete(speciality) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: {
+        windowTitle: 'Видалення спеціальності',
+        itemName: speciality.code + ' - ' + speciality.name
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.specialitiesService.deleteSpeciality(speciality.id);
+      }
+    });
   }
 
   openAddSubjectDialog() {
