@@ -67,6 +67,11 @@ const routes: Routes = [
     canActivateChild: [ TeacherGuard ],
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        component: PlaceholderComponent
+      },
+      {
         path: ':studentid',
         component: StudentBoardComponent
       }
@@ -101,6 +106,11 @@ const routes: Routes = [
         path: 'groups/:groupid/subjects',
         component: ManageGroupSubjectsPageComponent,
         children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: PlaceholderComponent
+          },
           {
             path: 'year/:year/semesters/:semester',
             component: GroupSubjectsListComponent

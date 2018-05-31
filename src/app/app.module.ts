@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
@@ -50,6 +52,7 @@ import {StudentGuard} from './student-guard.service';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 
+registerLocaleData(localeUk, 'uk');
 
 @NgModule({
   declarations: [
@@ -116,7 +119,8 @@ import { PlaceholderComponent } from './placeholder/placeholder.component';
     StudentsService,
     GroupScheduleService,
     TeacherGroupsService,
-    GradesService
+    GradesService,
+    { provide: LOCALE_ID, useValue: 'uk' }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8">
   <header>
-    <mat-form-field>
+    <mat-form-field *ngIf="groups && (groups.length > 0)">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Пошук">
     </mat-form-field>
 
@@ -14,7 +14,11 @@
     </button>
   </header>
 
-  <mat-table #table [dataSource]="dataSource">
+  <div class="placeholder" *ngIf="!groups || (groups.length < 1)">
+    Жодної групи не додано
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" *ngIf="groups && (groups.length > 0)">
 
     <ng-container matColumnDef="group">
       <mat-header-cell *matHeaderCellDef> Група </mat-header-cell>

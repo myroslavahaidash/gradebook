@@ -1,5 +1,9 @@
 <div class="mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
+  <div class="placeholder" *ngIf="!groups || (groups.length < 1)">
+    Групи відсутні
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" *ngIf="groups && (groups.length > 0)">
 
     <ng-container matColumnDef="group">
       <mat-header-cell *matHeaderCellDef> Група </mat-header-cell>

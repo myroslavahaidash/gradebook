@@ -1,5 +1,13 @@
 <h2>{{group.code}} - {{subject.name}}</h2>
-<div class="flex-wrapper">
+<div *ngIf="!students || (students.length < 1)">
+  <mat-card class="placeholder">
+    <mat-card-content>
+      Студенти відсутні
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="flex-wrapper" *ngIf="students && (students.length > 0)">
   <mat-nav-list>
     <a mat-list-item [routerLink]="[student.id]" routerLinkActive="nav-active" *ngFor="let student of students">
       {{student.lastName + ' ' + student.firstName }}

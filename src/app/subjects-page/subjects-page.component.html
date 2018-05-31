@@ -1,4 +1,12 @@
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="!subjects || (subjects.length < 1)">
+  <mat-card class="placeholder">
+    <mat-card-content>
+      Предмети відсутні
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="page-wrapper" *ngIf="subjects && (subjects.length > 0)">
   <mat-nav-list role="navigation">
     <a mat-list-item [routerLink]="[subject.subject.id]" routerLinkActive="nav-active" *ngFor="let subject of subjects">
       {{subject.subject.name}}

@@ -41,7 +41,7 @@ export class GradesService {
       {value, description, createdAt}, this.getHeaders())
       .subscribe(grade => {
         this.grades.value.currentGrades.push(grade);
-       // this.grades.value.currentGradesTotal += grade.value; TODO Uncomment
+        this.grades.value.currentGradesTotal += grade.value;
         this.grades.next(this.grades.value);
     });
   }

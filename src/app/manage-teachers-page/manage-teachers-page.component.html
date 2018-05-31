@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8">
   <header>
-    <mat-form-field>
+    <mat-form-field *ngIf="teachers && (teachers.length > 0)">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Пошук">
     </mat-form-field>
 
@@ -14,7 +14,11 @@
     </button>
   </header>
 
-  <mat-table #table [dataSource]="dataSource">
+  <div *ngIf="!teachers || (teachers.length < 1)">
+    Жодного викладача не додано
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" *ngIf="teachers && (teachers.length > 0)">
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> ПІБ викладача </mat-header-cell>

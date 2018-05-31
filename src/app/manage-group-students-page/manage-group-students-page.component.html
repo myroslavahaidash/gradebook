@@ -12,7 +12,11 @@
     </button>
   </header>
 
-  <mat-table #table [dataSource]="dataSource">
+  <div class="placeholder" *ngIf="!students || (students.length < 1)">
+    В цю групу не додано жодного студента
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" *ngIf="students && (students.length > 0)">
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> ПІБ студента </mat-header-cell>

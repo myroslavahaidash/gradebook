@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { GroupScheduleService } from '../group-schedule.service';
 import { TeachersService } from '../teachers.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { xorWith, isEqual } from 'lodash';
 
 @Component({
   selector: 'app-group-subject-teachers-dialog',
@@ -22,6 +23,9 @@ export class GroupSubjectTeachersDialogComponent implements OnInit {
   onSubmit() {
     this.groupScheduleService
       .addTeacherToSubject(this.data.groupId, this.data.year, this.data.semester, this.data.subject.subject, this.selectedTeacher);
+
+    this.teachers = this.teachers.filter(t => !isEqual(t, this.selectedTeacher));
+    this.selectedTeacher = null;
   }
 
   onDelete(teacher) {
@@ -30,7 +34,9 @@ export class GroupSubjectTeachersDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teachersService.getTeachers().subscribe(teachers => this.teachers = teachers);
+    this.teachersService.getTeachers().subscribe(teachers => {
+      this.teachers = xorWith(teachers, this.data.subject.teachers, isEqual);
+    });
   }
 
 }

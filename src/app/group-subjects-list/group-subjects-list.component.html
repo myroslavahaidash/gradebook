@@ -9,7 +9,11 @@
     </button>
   </header>
 
-  <mat-table #table [dataSource]="dataSource">
+  <div class="placeholder" *ngIf="!subjects || (subjects.length < 1)">
+    Предмети відсутні
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" *ngIf="subjects && (subjects.length > 0)">
 
     <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef> Предмет </mat-header-cell>
