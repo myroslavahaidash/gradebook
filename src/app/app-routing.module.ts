@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { SubjectsPageComponent } from './subjects-page/subjects-page.component';
-import { FinalGradesPageComponent } from './final-grades-page/final-grades-page.component';
-import { GradesListComponent } from './grades-list/grades-list.component';
-import { GroupsPageComponent } from './groups-page/groups-page.component';
-import { StudentsListComponent } from './students-list/students-list.component';
-import { StudentBoardComponent } from './student-board/student-board.component';
-import { ChangePasswordPageComponent } from './change-password-page/change-password-page.component';
-import { ForgotPasswordPageComponent } from './forgot-password-page/forgot-password-page.component';
-import { ManageSubjectsPageComponent } from './manage-subjects-page/manage-subjects-page.component';
-import { ManageSpecialitiesPageComponent } from './manage-specialities-page/manage-specialities-page.component';
-import { ManageTeachersPageComponent } from './manage-teachers-page/manage-teachers-page.component';
-import { ManageGroupsPageComponent } from './manage-groups-page/manage-groups-page.component';
-import { ManageGroupStudentsPageComponent } from './manage-group-students-page/manage-group-students-page.component';
-import { ManageGroupSubjectsPageComponent } from './manage-group-subjects-page/manage-group-subjects-page.component';
-import { GroupSubjectsListComponent } from './group-subjects-list/group-subjects-list.component';
-import { AdminGuard } from './admin-guard.service';
-import { TeacherGuard } from './teacher-guard.service';
-import { DefaultGuard } from './default-guard.service';
-import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { SubjectsPageComponent } from './components/subjects-page/subjects-page.component';
+import { FinalGradesPageComponent } from './components/final-grades-page/final-grades-page.component';
+import { GradesListComponent } from './components/grades-list/grades-list.component';
+import { GroupsPageComponent } from './components/groups-page/groups-page.component';
+import { StudentsListComponent } from './components/students-list/students-list.component';
+import { StudentBoardComponent } from './components/student-board/student-board.component';
+import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
+import { ForgotPasswordPageComponent } from './components/forgot-password-page/forgot-password-page.component';
+import { ManageSubjectsPageComponent } from './components/manage-subjects-page/manage-subjects-page.component';
+import { ManageSpecialitiesPageComponent } from './components/manage-specialities-page/manage-specialities-page.component';
+import { ManageTeachersPageComponent } from './components/manage-teachers-page/manage-teachers-page.component';
+import { ManageGroupsPageComponent } from './components/manage-groups-page/manage-groups-page.component';
+import { ManageGroupStudentsPageComponent } from './components/manage-group-students-page/manage-group-students-page.component';
+import { ManageGroupSubjectsPageComponent } from './components/manage-group-subjects-page/manage-group-subjects-page.component';
+import { GroupSubjectsListComponent } from './components/group-subjects-list/group-subjects-list.component';
+import { AdminGuard } from './shared/guards/admin-guard.service';
+import { TeacherGuard } from './shared/guards/teacher-guard.service';
+import { DefaultGuard } from './shared/guards/default-guard.service';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 
 const routes: Routes = [
   {
