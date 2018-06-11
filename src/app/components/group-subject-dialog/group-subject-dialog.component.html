@@ -17,7 +17,7 @@
       </mat-radio-button>
     </mat-radio-group>
 
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!selectedSubject || !selectedAssessmentType">
       <span>Додати</span>
     </button>
   </form>

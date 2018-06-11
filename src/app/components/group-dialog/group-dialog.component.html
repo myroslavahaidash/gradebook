@@ -21,7 +21,7 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!code || !selectedSpeciality || (!date && mode === 'add')">
       <span *ngIf="mode === 'add'">Додати</span>
       <span *ngIf="mode === 'edit'">Редагувати</span>
     </button>

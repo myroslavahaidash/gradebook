@@ -15,7 +15,6 @@ export class LoginPageComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.login, this.password).subscribe(userProfile => {
       if (!userProfile) {
-        console.log('Login error');
         return;
       }
       if (userProfile.role === 'student') {
@@ -24,8 +23,6 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['groups']);
       } else if (userProfile.role === 'admin') {
         this.router.navigate(['manage/groups']);
-      } else {
-        console.log('Unknown role');
       }
     });
   }

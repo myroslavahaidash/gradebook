@@ -35,8 +35,8 @@
     </ng-container>
 
     <ng-container matColumnDef="points">
-      <mat-header-cell *matHeaderCellDef> Кількість балів </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef class="centered-cell"> Кількість балів </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="centered-cell"> {{element.value}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createdAt">

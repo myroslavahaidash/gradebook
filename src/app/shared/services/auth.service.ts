@@ -4,16 +4,22 @@ import * as decode from 'jwt-decode';
 import { catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { BehaviorSubject} from 'rxjs';
-import AuthToken from '../models/AuthToken';
+import AuthToken from '../models/auth-token';
+import { NotificationsService } from 'angular2-notifications';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
 
-  token;
-  userProfile: BehaviorSubject<any>;
+  private token;
+  private userProfile: BehaviorSubject<any>;
+  private AUTH_URL: string = environment.serverUrl + '/auth';
+  private CHANGE_PASSWORD_URL: string = environment.serverUrl + '/auth/change-password';
+  private RESET_PASSWORD_URL: string = environment.serverUrl + '/auth/reset-password';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private notificationsService: NotificationsService
   ) {
     this.token = localStorage.getItem('token');
 
@@ -47,7 +53,7 @@ export class AuthService {
   }
 
   login(login, password) {
-    return this.http.post('http://localhost:8090/api/auth', {login, password})
+    return this.http.post(this.AUTH_URL, {login, password})
       .pipe(
         switchMap((data: AuthToken) => {
           localStorage.setItem('token', data.token);
@@ -59,7 +65,10 @@ export class AuthService {
 
           return of(userProfile);
         }),
-        catchError(err => of(null))
+        catchError(err => {
+          this.notificationsService.error((err.error && err.error.error) || 'Помилка');
+          return of(null);
+        })
       );
   }
 
@@ -78,12 +87,16 @@ export class AuthService {
   }
 
   changePassword(oldPassword, newPassword) {
-    console.log(oldPassword, newPassword);
-    this.http.post('http://localhost:8090/api/auth/change-password', {oldPassword, newPassword}, this.getHeaders())
-      .subscribe(() => {});
+    this.http.post(this.CHANGE_PASSWORD_URL, {oldPassword, newPassword}, this.getHeaders())
+      .subscribe(
+        () => this.notificationsService.success('Пароль успішно змінено'),
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
   }
 
   resetPassword(email) {
-    this.http.post('http://localhost:8090/api/auth/reset-password', {email}).subscribe(() => console.log(email));
+    this.http.post(this.RESET_PASSWORD_URL, {email}).subscribe(
+      () => this.notificationsService.success('Новий пароль надіслано на вказану електронну пошту'),
+      err => this.notificationsService.error((err.error && err.error.error) || 'Помилка')
+      );
   }
 }

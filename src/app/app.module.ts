@@ -47,10 +47,11 @@ import { GroupSubjectTeachersDialogComponent } from './components/group-subject-
 import { TeacherGroupsService } from './shared/services/teacher-groups.service';
 import { GradesService } from './shared/services/grades.service';
 import { LetterGradePipe } from './shared/pipes/letter-grade.pipe';
-import {TeacherGuard} from './shared/guards/teacher-guard.service';
-import {StudentGuard} from './shared/guards/student-guard.service';
+import { TeacherGuard } from './shared/guards/teacher-guard.service';
+import { StudentGuard } from './shared/guards/student-guard.service';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 registerLocaleData(localeUk, 'uk');
 
@@ -104,7 +105,12 @@ registerLocaleData(localeUk, 'uk');
     FormsModule,
     CustomMaterialModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(
+      {
+        timeOut: 5000
+      }
+    )
   ],
   providers: [
     AuthService,

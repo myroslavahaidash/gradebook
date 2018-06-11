@@ -20,8 +20,8 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">
-      <span>Додати</span>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!selectedTeacher">
+      Додати
     </button>
   </form>
 </div>

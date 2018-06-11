@@ -3,13 +3,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject} from 'rxjs';
 import { AuthService } from './auth.service';
 import { orderBy } from 'lodash';
+import { NotificationsService } from 'angular2-notifications';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class GroupsService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationsService: NotificationsService
   ) {
     this.groups = new BehaviorSubject<any>([]);
     this.group = new BehaviorSubject<any>({});
@@ -19,6 +22,7 @@ export class GroupsService {
   private groups: BehaviorSubject<any>;
   private group: BehaviorSubject<any>;
   private groupStudents: BehaviorSubject<any>;
+  private GROUPS_URL: string = environment.serverUrl + '/groups';
 
   private getHeaders() {
     return {
@@ -29,50 +33,60 @@ export class GroupsService {
   }
 
   getGroups() {
-    this.http.get('http://localhost:8090/api/groups', this.getHeaders())
-      .subscribe(groups => this.groups.next(orderBy(groups, 'code', 'asc')));
+    this.http.get(this.GROUPS_URL, this.getHeaders())
+      .subscribe(
+        groups => this.groups.next(orderBy(groups, 'code', 'asc')),
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
 
     return this.groups.asObservable();
   }
 
   getGroup(id) {
-    this.http.get(`http://localhost:8090/api/groups/${id}`, this.getHeaders())
-      .subscribe(group => this.group.next(group));
+    this.http.get(`${this.GROUPS_URL}/${id}`, this.getHeaders())
+      .subscribe(
+        group => this.group.next(group),
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
 
     return this.group.asObservable();
   }
 
   getGroupStudents(groupId) {
-    this.http.get(`http://localhost:8090/api/groups/${groupId}/students`, this.getHeaders())
-      .subscribe(groupStudents => this.groupStudents
-        .next(orderBy(groupStudents, ['lastName', 'firstName', 'middleName'], ['asc', 'asc', 'asc'])));
+    this.http.get(`${this.GROUPS_URL}/${groupId}/students`, this.getHeaders())
+      .subscribe(
+        groupStudents => this.groupStudents.next(orderBy(groupStudents, ['lastName', 'firstName', 'middleName'], ['asc', 'asc', 'asc'])),
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
 
     return this.groupStudents.asObservable();
   }
 
   createGroup(code, educationStartedAt, specialityId) {
-    this.http.put('http://localhost:8090/api/groups', {code, educationStartedAt, specialityId}, this.getHeaders())
-      .subscribe(group => {
+    this.http.put(this.GROUPS_URL, {code, educationStartedAt, specialityId}, this.getHeaders())
+      .subscribe(
+        group => {
         this.groups.value.push(group);
         this.groups.next(orderBy(this.groups.value, 'code', 'asc'));
-      });
+      },
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
   }
 
   updateGroup(groupId, code, speciality) {
-    this.http.post(`http://localhost:8090/api/groups/${groupId}`, {code, specialityId: speciality.id}, this.getHeaders())
-      .subscribe(() => {
+    this.http.post(`${this.GROUPS_URL}/${groupId}`, {code, specialityId: speciality.id}, this.getHeaders())
+      .subscribe(
+        () => {
         const group = this.groups.value.find(g => g.id === groupId);
 
         group.code = code;
         group.speciality = speciality;
 
         this.groups.next(this.groups.value);
-      }
-    );
+      },
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
   }
 
   deleteGroup(groupId) {
-    this.http.delete(`http://localhost:8090/api/groups/${groupId}`, this.getHeaders())
-      .subscribe(() => this.groups.next(this.groups.value.filter(g => g.id !== groupId)));
+    this.http.delete(`${this.GROUPS_URL}/${groupId}`, this.getHeaders())
+      .subscribe(
+        () => this.groups.next(this.groups.value.filter(g => g.id !== groupId)),
+        err => this.notificationsService.error((err.error && err.error.error) || 'Помилка'));
   }
 }

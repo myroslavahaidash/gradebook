@@ -19,7 +19,8 @@
       <input matInput type="email" placeholder="Email" [(ngModel)]="email" name="email">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit"
+            [disabled]="!lastName || !middleName || !firstName || (!email && (mode === 'add'))">
       <span *ngIf="mode === 'add'">Додати</span>
       <span *ngIf="mode === 'edit'">Редагувати</span>
     </button>
